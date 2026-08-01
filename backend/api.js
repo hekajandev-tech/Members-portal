@@ -70,32 +70,32 @@ router.get('/findmember/:id', async (req, res) => {
 });
 
 
-//Update a member data [Method 01]
-router.put('/updatemember/:id', async (req, res) => {
-    try {
-        const targetId = req.params.id;
-        const UpdatedMember = await MemberModel.findOne({MEMBER_ID: targetId});
+// //Update a member data [Method 01]
+// router.put('/updatemember/:id', async (req, res) => {
+//     try {
+//         const targetId = req.params.id;
+//         const UpdatedMember = await MemberModel.findOne({MEMBER_ID: targetId});
 
-        UpdatedMember.MEMBER_ID = req.body.MEMBER_ID;
-        UpdatedMember.FULL_NAME = req.body.FULL_NAME;
-        UpdatedMember.NIC = req.body.NIC;
-        UpdatedMember.GENDER = req.body.GENDER;
-        UpdatedMember.DATE_OF_BIRTH = req.body.DATE_OF_BIRTH;
-        UpdatedMember.EMAIL = req.body.EMAIL;
-        UpdatedMember.PHONE_NO = req.body.PHONE_NO;
-        UpdatedMember.ADDRESS = req.body.ADDRESS;
-        UpdatedMember.MEMBER_TYPE = req.body.MEMBER_TYPE;
-        UpdatedMember.REGISTRATION_DATE = req.body.REGISTRATION_DATE;
+//         UpdatedMember.MEMBER_ID = req.body.MEMBER_ID;
+//         UpdatedMember.FULL_NAME = req.body.FULL_NAME;
+//         UpdatedMember.NIC = req.body.NIC;
+//         UpdatedMember.GENDER = req.body.GENDER;
+//         UpdatedMember.DATE_OF_BIRTH = req.body.DATE_OF_BIRTH;
+//         UpdatedMember.EMAIL = req.body.EMAIL;
+//         UpdatedMember.PHONE_NO = req.body.PHONE_NO;
+//         UpdatedMember.ADDRESS = req.body.ADDRESS;
+//         UpdatedMember.MEMBER_TYPE = req.body.MEMBER_TYPE;
+//         UpdatedMember.REGISTRATION_DATE = req.body.REGISTRATION_DATE;
 
 
-        const data = await UpdatedMember.save();
-        res.status(201).send("Member Data addedd successfully!");
+//         const data = await UpdatedMember.save();
+//         res.status(201).send("Member Data addedd successfully!");
 
-    } catch (error){
-        console.error("Error saving the data", error);
-        res.status(500).send("Internal Server error");
-    }
-});
+//     } catch (error){
+//         console.error("Error saving the data", error);
+//         res.status(500).send("Internal Server error");
+//     }
+// });
 
 
 //Update a member data [Method 02]
@@ -120,12 +120,16 @@ router.put('/updatemember/:id', async (req, res) => {
             });
         }
 
-        const data = await UpdatedMember.save();
-        res.status(201).send("Member Data addedd successfully!");
+        res.status(200).json({
+            message:"Member successfully updated",
+            data: UpdatedMember
+        });
 
     } catch (error){
         console.error("Error saving the data", error);
-        res.status(500).send("Internal Server error");
+        res.status(500).json({
+            message:"Internal Server Error"
+        });
     }
 });
 
